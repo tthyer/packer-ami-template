@@ -9,7 +9,7 @@ export AMI_NAME="my-test-image"
 
 # get AMI_ID by substituting the ImageName you used, or check the console
 AMI_ID=$(aws ec2 describe-images --filters Name=name,Values=$AMI_NAME | jq -j '. | .Images[0].ImageId')
-if [ -z "$AMI_ID" ]; then
+if [ -n "$AMI_ID" ]; then
   echo "de-register AMI: $AMI_ID";
   # deregister the image
   aws ec2 deregister-image --image-id $AMI_ID;
